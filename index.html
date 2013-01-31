@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script src="jquery.js"></script>
+<script>
+
+$(function() {
+
+	var mousein, mouseout, delta;
+
+	$('.MOV').mousedown(function() {
+
+		mousein = (new Date()).getTime()
+		//alert('in');
+
+	});
+
+	$('.MOV').mouseup(function() {
+		mouseout = (new Date()).getTime()
+		delta = mouseout - mousein;
+		if (delta < 200)
+			force = 1;
+		else if (delta < 500)
+			force = 7;
+		else if (delta < 1000)
+			force = 31;
+		else if (delta < 1500)
+			force = 47;
+		else
+			force = 63;
+
+		id = $(this).attr('id');
+		$.get("http://192.168.0.68:8080/ptz/setPTZ.php?force=" + force + "&mov="+id, function(data) {});
+	});
+
+});
+
+</script>
+</head>
+<body bgcolor="#008000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
+	<table id="Table_01" width="96" border="0" cellpadding="0" cellspacing="0">
+	<tbody>
+	<tr>
+		<td colspan="1"><img src="cam_left_top.png" width="32" height="30" /></td>
+		<td colspan="1" class="MOV" id="up">
+			<img src="camup.png" width="52" height="30" />
+		</td>
+		<td colspan="1"><img src="cam_right_top.png" width="30" height="30" /></td>
+	</tr>
+
+	<tr>
+		<td colspan="1" class="MOV" id="left">
+			<img src="camleft.png" width="32" height="52" />
+		</td>
+		<td colspan="1"><img src="camcenter_up.png" width="52" height="26" class="MOV" id="in"/><br/>
+				<img src="camcenter_down.png" width="52" height="26" class="MOV" id="out"/></td>
+		<td colspan="1" class="MOV" id="right">
+			<img src="camright.png" width="30" height="52" />
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="1"><img src="cam_left_bottom.png" width="32" height="32" /></td>
+		<td colspan="1" class="MOV" id="down">
+			<img src="camdown.png" width="52" height="32" />
+		</td>
+		<td colspan="1"><img src="cam_right_bottom.png" width="30" height="32" /></td>
+	</tr>
+
+	</tbody>
+	</table>
+</body>
+</html>
+
