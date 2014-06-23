@@ -7,7 +7,10 @@
 
 $(function() {
 
-	var mousein, mouseout, delta;
+	var server_url, mousein, mouseout, delta;
+	
+	// Modify this to your needs
+	server_url = "http://192.168.0.68:8080/ptz/setPTZ.php?force="
 
 	$('.MOV').mousedown(function() {
 
@@ -31,7 +34,7 @@ $(function() {
 			force = 63;
 
 		id = $(this).attr('id');
-		$.get("http://192.168.0.68:8080/ptz/setPTZ.php?force=" + force + "&mov="+id, function(data) {});
+		$.get(server_url + force + "&mov="+id, function(data) {});
 	});
 
 });
